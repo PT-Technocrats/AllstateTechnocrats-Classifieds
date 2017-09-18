@@ -1,0 +1,463 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta charset="utf-8"></meta>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" ></meta>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script type="text/javascript" src="js/controller.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angular-ui-router/1.0.0-rc.1/angular-ui-router.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'></link>
+<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'></link>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></link>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"></link>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<style>
+body { padding-top: 50px;}
+
+nav.navbar {
+width: inherit;
+left: 50%;
+transform: translateX(-50%);
+background-color:blue;
+max-height : 80px;
+}
+</style>
+</head>
+<body>
+
+<div class="container" ng-app="myApp">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="page-header">
+        <h2>{{ title }}</h2>
+      </div>
+    </div>
+    
+    <div ui-view=""> </div>
+    
+  </div>
+  
+
+  <script type="text/ng-template" id="login.html">
+   
+    <div class="col-md-12">
+      <h3>Login Page</h3>
+      
+      <form ng-submit="formSubmit()" class="form" name="form">
+        <div class="col-md-4">
+          <div class="form-group">
+            <input type="text" class="form-control" ng-model="username" placeholder="username" required=""/>
+           
+          </div> 
+
+          <div class="form-group">
+            <input type="password" class="form-control" ng-model="password" placeholder="password" required=""/>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-success">Login</button>
+            <span class="text-danger">{{ error }}</span>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </script>
+  <script type="text/ng-template" id="Home.html">
+			
+			<a ui-sref="login">
+			<h1 align="right">Logout</h1>
+			</a>
+			
+			<div class="col-md-12" >
+			<table width="80%" style="margin: 0 auto; solid;text-align:center">
+
+					
+				  <tr>
+					<td colspan="400"> <a ui-sref="house">
+					<img src="images/House-1.jpg" style="width:400px; height:300px" title="Checkout Houses for rent here !!!"></img>
+					<!-- <h3> House Rentals</h3> -->
+					</a>
+					</td> 
+					
+					<td colspan="400"> <a ui-sref="car">
+					<img src="images/Car-1.jpg" style="width:400px; height:300px" title="Checkout Car Pooling here !!!"></img>
+					<!-- <h3> Car Pooling</h3> -->
+					</a> 
+					</td> 
+
+				  </tr>
+				  
+				  <tr>
+					<td colspan="400"> <!-- <a ui-sref="house"> -->
+					<img src="images/Buy-1.jpg" style="width:400px; height:300px" title="Buy and Sell here !!!"></img>
+					<!-- <h3> Buy & Sell</h3> 
+					</a> -->
+					</td> 
+					
+					<td colspan="400"> <!-- <a ui-sref="house"> -->
+					<img src="images/Allstate.jpg" style="width:400px; height:300px" title="Checkout Allstate Events here !!!"></img>
+					<!-- <h3> Allstate Events</h3> 
+					</a> -->
+					</td> 
+
+				  </tr>
+
+			</table>
+      
+
+    
+      <!-- <a ui-sref="login">Back</a> -->
+    </div>
+  </script>
+<script type="text/ng-template" id="HouseRentals.html">
+<link href="css/bootstrap.css" rel="stylesheet"/>
+	<a ui-sref="home">
+	<h1 align="right">Home</h1>
+	</a>
+    <div class="panel panel-default" data-ng-init="getAllRentals()" style="height: 500px; overflow-y: scroll;">    
+     <table>                  
+      <tr ng-repeat ="rental in allRentals">
+     	<td>  
+			<div> <br> </br> </div>		
+          	<div class="table-responsive col-md-12">
+				<table class="table table-hover table-bordered">
+       			 <tr>
+       				 <td colspan="12"><label class="col-md-2 control-lable">Posted by </label></td>
+       				 <td colspan="25">{{rental.postedBy}}</td>
+       			 </tr>        
+        		 <tr style="height:15px;">
+        			<td colspan="12" style="height:15px"><label class="col-md-2 control-lable">Ad Description </label> </td>
+        			<td colspan="25" style="height:15px">{{rental.postDesc}}</td>
+        		</tr>
+        		<tr>
+        			<td colspan="12"><label class="col-md-2 control-lable">Posted on </label> </td>
+        			<td colspan="25">{{rental.postedOn}}</td>
+        		</tr>
+        		<tr>
+       				<td colspan="12"><label class="col-md-2 control-lable">Contact number </label></td>
+        			<td colspan="25">{{rental.phoneNumber}}</td>
+        		</tr>
+        		<tr>
+        			<td colspan="12"><label class="col-md-2 control-lable">Email ID </label> </td>
+        			<td colspan="25">{{rental.emailId}}</td>
+        		</tr>      
+			   </table>
+				<div class="row form-group col-md-12">
+					<input type="submit" ng-click="editRental(rental.id)" class="btn btn-success" value="Edit"></input>
+					<input type="submit" ng-click="removeRental(rental.id)" class="btn btn-danger" value="Remove"></input>
+				</div>
+ 			 </div>          
+       </td>
+      </tr>
+      </table>     
+    </div>
+
+    <div class="panel panel-default">
+          <div class="col-md-12"><h3>Post your house rental Ads here :</h3>
+			<br></br>
+		  </div>
+		 <form ng-submit="rentalSubmit()" name="rentalForm">
+                   
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable" for="postDesc">Ad Description:</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="postDesc" id="postDesc" class="form-control input-sm" placeholder="Enter Ad decription" required="" ng-minlength="10"></input>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable" for="phoneNumber">Contact number:</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="phoneNumber" id="phoneNumber" class="form-control input-sm" placeholder="Enter phone number" required=""></input>
+                            </div>
+                        </div>
+                    </div>
+					<div class="row">
+						<div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable" for="emailId">Email ID:</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="emailId" id="emailId" class="form-control input-sm" placeholder="Enter Email ID" required=""></input>
+                            </div>
+                        </div>					
+					 </div>  
+					<!-- <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable" for="postedBy">Posted By:</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="postedBy" id="postedBy" class="form-control input-sm" placeholder="Enter name" required="" ng-minlength="10"></input>
+                            </div>
+                        </div>
+                    </div>  -->
+
+                    <div class="row">
+						 <div class="form-group col-md-12">
+							
+                       		 <div class="form-actions col-md-2">
+                            	<input type="submit"  class="btn btn-primary btn-sm"></input>
+                        	</div>
+						
+						 </div>
+                    </div>
+                </form>
+
+    </div>
+    
+  </script>
+  
+  <script type="text/ng-template" id="CarPooling.html">
+
+	<a ui-sref="home">
+	<h1 align="right">Home</h1>
+	</a>
+	
+	<div class="container">
+		<nav role="navigation" class="navbar navbar-default navbar-fixed-top">
+		  <a href="#/" class="nav navbar-nav navbar-left"><img src="images/letspool.jpg" style="max-height:80px; max-width:250px" ></img></a>
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				  <div class="navbar-header">
+					
+					<a href="#/" class="navbar-brand" style="color:black" role="button">Car Pooling</a>
+				</div>
+				<!-- Collection of nav links and other content for toggling -->
+				 <div id="navbarCollapse" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+					<li><a role="button" style="color:black" ng-click="enableOfferLayout();"><img src="images/car.png" style="max-height:33px; max-width:40px" ></img> Offer</a></li>
+				  <li><a  role="button" style="color:black" ng-click="enableRequestLayout();"><img src="images/car.png" style="max-height:33px; max-width:40px" ></img> Request</a></li> 
+				   <li><a  role="button" style="color:black" ng-click="enablePoolLayout();"><img src="images/car.png" style="max-height:33px; max-width:40px" ></img> Pool Details</a></li> 
+				</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+
+
+
+	 <div class="col-md-6 col-md-offset-3">
+	 
+		<div class="panel panel-default">
+		<div class="panel-heading clearfix">Pending Requests
+		<div class="btn-group pull-right" role="group">
+		<p>Requests : {{pendingRequests.length}}
+			<button type="button" class="btn btn-primary btn-sm" ng-click="showRequestList();" data-toggle="collapse" data-target="#pendingRequest"><span class="glyphicon glyphicon-chevron-down"> </span> View</button>
+			</p></div>
+		</div>
+		<div id="pendingRequest" class="collapse">
+		<div style="text-align:center; padding-top: 40px;"  ng-show="shownorequest">
+		<label> NO Pending Requests !!!  </label>
+		</div>
+		<div class="table-responsive" ng-show="showrequesttable">
+		<table class="table " ng-show="showrequesttable">
+					<thead>
+					<tr>
+					<th><label>Requested By</label></th>
+					<th><label>To</label></th>
+					<th><label>Start Time</label></th>
+					<th><label>Seats Available</label></th>
+					<th><label>Seats Requested</label></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="requests in pendingRequests">
+					<td>{{requests.name}}</td>
+					<td>{{requests.to}}</td>
+                    <td>{{requests.starttime}}</td>
+					 <td>{{requests.seats}}</td>
+					 <td>{{requests.seatsNeeded}}</td>
+					<td>
+                            <button class="btn btn-success" style="float: right" type="button" ng-click="savePoolingDetails(requests, $index);"><span class="glyphicon glyphicon-ok"></span> Confirm</button>
+					</td>
+					</tr>	
+					</tbody>
+					
+                   </table>
+                  </div> 	
+        </div>
+      </div>
+	<div class="panel panel-default">
+	<div class="panel-heading clearfix">Pooling Offered
+		<div class="btn-group pull-right" role="group">
+		<p>Offers : {{pendingOffers.length}}
+			<button type="button" class="btn btn-primary btn-sm" ng-click="showOfferedList();" data-toggle="collapse" data-target="#pendingOffer"><span class="glyphicon glyphicon-chevron-down"></span> View</button>
+		</p>	</div>
+		</div>
+		<div id="pendingOffer" class="collapse">
+		<div style="text-align:center; padding-top: 40px;" ng-show="shownopooling">
+		<label> No Pooling Offered !!!  </label>
+		</div>
+		<div class="table-responsive" ng-show="showofferedtable">
+		<table class="table " ng-show="showofferedtable">
+					<thead>
+				<tr>
+					<th><label>Name</label></th>
+					<th><label>To</label></th>
+					<th><label>Start Time</label></th>
+					<th><label>Seats Available</label></th>
+				</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="offers in pendingOffers">
+					<td>{{offers.name}}</td>
+					<td>{{offers.to}}</td>
+                    <td>{{offers.starttime}}</td>
+					 <td>{{offers.seats}}</td>
+					<td>
+                            <button class="btn btn-primary" style="float: right" type="button"><span class="glyphicon glyphicon-pencil"></span></button>
+							<button class="btn btn-danger" style="float: right" type="button"><span class="glyphicon glyphicon-trash"></span></button>
+					</td>
+					</tr>	
+			</tbody>
+                   </table> 
+                  
+            </div> 
+		</div>			
+       </div>
+		<div class="panel panel-default">
+	<div class="panel-heading clearfix">
+		<div class="btn-group pull-left" role="group">
+			<button type="button" class="btn btn-primary btn-sm" ng-click="enableOfferLayout();" ng-disabled="disableOffer"><span class="glyphicon glyphicon-bell"></span> Offer</button>
+			</div>
+			<div class="btn-group pull-right" role="group" ng-disabled="">
+			<button type="button" class="btn btn-primary btn-sm" ng-click="enableRequestLayout();" ng-disabled="disableRequest"><span class="glyphicon glyphicon-time"></span> Request</button>
+			</div>
+		</div>
+		
+		<div class="table-responsive" ng-show="showOfferLayout">
+		<table class="table " ng-show="showOfferLayout">
+					<thead>
+				<tr>
+					<th><label>Name</label></th>
+					<th><label>To</label></th>
+					<th><label>Start Time</label></th>
+					<th><label>Seats Available</label></th>
+					</tr>
+				</thead>
+				<tbody>
+				<tr>
+				<form name='offerForm'>
+					<td><input class="form-control" style="height:30px;" type="text" required="required"  ng-model="offerDetails.name" /> </td>
+					<td><input class="form-control" style="height:30px;" type="text" required="required" ng-model="offerDetails.to"/></td>
+                    <td><input class="form-control" style="height:30px;" type="time" required="required" ng-model="offerDetails.starttime"/></td>
+					 <td><input class="form-control" style="height:30px;" type="text" required="required" ng-model="offerDetails.seats"/></td>
+					<td>
+                            <button class="btn btn-success" style="float: right" type="submit" ng-click="saveOfferDetails();"><span class="glyphicon glyphicon-ok"></span> Submit</button>
+					</td>
+				</form>
+					</tr>	
+			</tbody>
+                   </table> 
+                  
+            </div>  
+		<div class="table-responsive" ng-show="showRequestLayout">
+		<table class="table " ng-show="showRequestLayout">
+					<thead>
+				<tr>
+					<th><label>Name</label></th>
+					<th><label>To</label></th>
+					<th><label>Start Time</label></th>
+					<th><label>Seats Required</label></th>
+					</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td><input class="form-control" style="height:30px;" type="text" required="required"  ng-model="requestDetails.name" /> </td>
+					<td><input class="form-control" style="height:30px;" type="text" required="required" ng-model="requestDetails.to"/></td>
+                    <td><input class="form-control" style="height:30px;" type="time" required="required" ng-model="requestDetails.starttime"/></td>
+					 <td><input class="form-control" style="height:30px;" type="text" required="required" ng-model="requestDetails.seatsNeeded"/></td>
+					<td>
+                            <button class="btn btn-success" style="float: right" type="button" ng-click="saveRequestDetails();"><span class="glyphicon glyphicon-search"></span> Search</button>
+					</td>
+					</tr>	
+			</tbody>
+                   </table> 
+                  
+            </div>
+        </div>	
+		
+		<div class="panel panel-default" ng-show="showSearchPanel">
+		<div class="panel-heading clearfix">Request search results
+		</div>
+		<div class="btn-group pull-right" role="group">
+		<p>Results Found : {{searchList.length}}</p></div>
+		<div style="text-align:center; padding-top: 40px;"  ng-show="showNoSearch">
+		<label> NO Pending Offers to Search !!!  </label>
+		</div>
+		<div class="table-responsive" ng-show="showSearchList">
+		<table class="table " ng-show="showSearchList">
+					<thead>
+					<tr>
+					<th><label>Name</label></th>
+					<th><label>To</label></th>
+					<th><label>Start Time</label></th>
+					<th><label>Seats Available</label></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="searchEntry in searchList track by $index">
+					<td>{{searchEntry.name}}</td>
+					<td>{{searchEntry.to}}</td>
+                    <td>{{searchEntry.starttime}}</td>
+					 <td>{{searchEntry.seats}}</td>
+					<td>
+                            <button class="btn btn-success" style="float: right" type="button" ng-click="savePendingRequest($index);"><span class="glyphicon glyphicon-ok"></span> Request</button>
+					</td>
+					</tr>	
+					</tbody>
+                   </table>
+                  </div> 	
+        </div>
+		
+		
+		<div class="panel panel-default" ng-show="showPool">
+		<div class="panel-heading clearfix">My Pool Details
+		<div class="btn-group pull-right" role="group">
+		<p>Pooling Entries : {{poolList.length}}</p></div>
+		</div>
+		<div>
+		<div style="text-align:center; padding-top:40px;" ng-show="showNoPoolDetails">
+		<label> NO Pooling Details !!!  </label>
+		</div>
+		<div class="table-responsive" ng-show="showPoolList">
+		<table class="table " ng-show="showPoolList">
+					<thead>
+					<tr>
+					<th><label>{{poolList.name}}  TO:{{poolList.to}}  Date : Time : {{poolList.starttime}}</label></th>
+					</tr>
+					<tr>
+					<th><label>Names</label></th>
+					<th><label>Seats</label></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="pooling in poolList">
+					<td>{{pooling.name}}</td>	
+					 <td>{{pooling.seatsNeeded}}</td>
+					<td>
+                            <button class="btn btn-danger" style="float: right" type="button"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+					</td>
+					</tr>	
+					</tbody>
+					
+                   </table>
+                  </div> 	
+        </div>
+      </div>
+	  
+	  </div>
+	
+   </script>
+</div>
+</body>
+</html>
