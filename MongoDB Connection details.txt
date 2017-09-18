@@ -1,0 +1,7 @@
+Create a folder in C:\ drive
+
+C:\mongoTest\db
+
+In CMD prompt run this below command:
+
+C:\Program Files\MongoDB\Server\3.4\bin\mongod --dbpath C:\mongoTest\db --setParameter failIndexKeyTooLong=false
