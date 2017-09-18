@@ -1,0 +1,9 @@
+Product Name - Allstate Classifieds Portal
+
+This portal is Allstate internal purpose only and will offer options to post Ads by Allstate employees.
+
+The following options will be provided  -
+1. To post Ads on House Rentals by allstate employees
+2. To offer or request Car pooling
+3. Ads on Buying or Selling any products
+4. Post Ads on upcoming Allstate events
